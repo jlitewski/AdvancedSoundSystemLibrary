@@ -1,9 +1,0 @@
-Each SoundSystem Codec, the SoundSystem itself, and the AdvancedSoundSystem is licensed under their
-respective licenses listed in the directories below.
-
-com.hackhalo2.*	- com.hackhalo2.LICENSE		(CC 3.0 by-sa)
-com.paulscode.* - com.paulscode.LICENSE		(SoundSystem License)
-de.jarnbjo.*	- de.jarnbjo.LICENSE		(JOGG License)
-ibxm			- ibxm.LICENSE				(BSD)
-org.xiph.*		- org.xiph.LICENSE			(BSD Variant)
-com.jcraft.*	- com.jcraft.LICENSE		(LGPL)
