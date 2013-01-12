@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.sound.sampled.AudioFormat;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -19,6 +21,7 @@ import com.paulscode.sound.ICodec;
 import com.paulscode.sound.SoundSystem;
 import com.paulscode.sound.SoundSystemConfig;
 import com.paulscode.sound.SoundSystemException;
+import com.paulscode.sound.codecs.CodecWav;
 import com.paulscode.sound.libraries.LibraryLWJGLOpenAL;
 
 /**
@@ -132,13 +135,17 @@ public class LWJGLSoundSystem implements ISoundSystem, ICodecable,
 		} else
 			return false;
 	}
+	
+	private boolean play(Sound sound) {		
+		sound.play();
+		return true;
+	}
 
 	@Override
 	public boolean play(int soundID) {
 		if (this.soundMap.containsKey(soundID)) {
 			Sound sound = this.soundMap.get(soundID);
-			sound.play();
-			return true;
+			return this.play(sound);
 		} else
 			return false;
 	}
@@ -149,8 +156,7 @@ public class LWJGLSoundSystem implements ISoundSystem, ICodecable,
 			Sound sound = this.soundMap.get(soundID);
 			this.soundSystem
 					.setPosition(sound.getName(), vector.x, vector.y, 0);
-			sound.play();
-			return true;
+			return this.play(sound);
 		} else
 			return false;
 	}
@@ -161,8 +167,7 @@ public class LWJGLSoundSystem implements ISoundSystem, ICodecable,
 			Sound sound = this.soundMap.get(soundID);
 			this.soundSystem.setPosition(sound.getName(), vector.x, vector.y,
 					vector.z);
-			sound.play();
-			return true;
+			return this.play(sound);
 		} else
 			return false;
 	}
