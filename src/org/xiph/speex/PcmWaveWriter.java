@@ -196,7 +196,8 @@ public class PcmWaveWriter
    * MUST be called to have a correct stream. 
    * @exception IOException if there was an exception closing the Audio Writer.
    */
-  public void close()
+  @Override
+public void close()
     throws IOException 
   {
     /* update the total file length field from RIFF chunk */
@@ -217,7 +218,8 @@ public class PcmWaveWriter
    * @param file - file to open.
    * @exception IOException if there was an exception opening the Audio Writer.
    */
-  public void open(final File file)
+  @Override
+public void open(final File file)
     throws IOException
   {
     file.delete(); 
@@ -230,7 +232,8 @@ public class PcmWaveWriter
    * @param filename filename to open.
    * @exception IOException if there was an exception opening the Audio Writer.
    */
-  public void open(final String filename)
+  @Override
+public void open(final String filename)
     throws IOException 
   {
     open(new File(filename)); 
@@ -242,7 +245,8 @@ public class PcmWaveWriter
    * @param comment ignored by the WAV header.
    * @exception IOException
    */
-  public void writeHeader(final String comment)
+  @Override
+public void writeHeader(final String comment)
     throws IOException
   {
     /* writes the RIFF chunk indicating wave format */
@@ -293,7 +297,8 @@ public class PcmWaveWriter
    * @param len the length of data to read.
    * @exception IOException
    */
-  public void writePacket(final byte[] data,
+  @Override
+public void writePacket(final byte[] data,
                           final int offset,
                           final int len)
     throws IOException 

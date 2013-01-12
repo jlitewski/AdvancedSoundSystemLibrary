@@ -170,7 +170,8 @@ public class SbCodec
    * 320 for wideband and 640 for ultra-wideband).
    * @return the size of a frame (number of audio samples in a frame).
    */
-  public int  getFrameSize()
+  @Override
+public int  getFrameSize()
   {
     return fullFrameSize;
   }
@@ -179,7 +180,8 @@ public class SbCodec
    * Returns whether or not we are using Discontinuous Transmission encoding.
    * @return whether or not we are using Discontinuous Transmission encoding.
    */
-  public boolean getDtx()
+  @Override
+public boolean getDtx()
   {
     // TODO - should return DTX for the NbCodec
     return dtx_enabled != 0;
@@ -189,7 +191,8 @@ public class SbCodec
    * Returns the excitation array.
    * @return the excitation array.
    */
-  public float[] getExc()
+  @Override
+public float[] getExc()
   {
     int i;
     float[] excTmp = new float[fullFrameSize];
@@ -202,7 +205,8 @@ public class SbCodec
    * Returns the innovation array.
    * @return the innovation array.
    */
-  public float[] getInnov()
+  @Override
+public float[] getInnov()
   {
     return getExc();
   }

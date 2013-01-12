@@ -11,10 +11,10 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.hackhalo2.rendering.RenderLogger;
 import com.paulscode.sound.ICodec;
 import com.paulscode.sound.SoundBuffer;
 import com.paulscode.sound.SoundSystemConfig;
-import com.paulscode.sound.SoundSystemLogger;
 
 /**
  * The CodecWav class provides an ICodec interface for reading from .wav files. <br>
@@ -83,13 +83,14 @@ public class CodecWav implements ICodec {
 	 *            True if the calling audio library requires byte-reversal from
 	 *            certain codecs
 	 */
+	@Override
 	public void reverseByteOrder(boolean b) {
 	}
 
 	/**
 	 * Processes status messages, warnings, and error messages.
 	 */
-	private SoundSystemLogger logger;
+	private RenderLogger logger;
 
 	/**
 	 * Constructor: Grabs a handle to the logger.
@@ -106,6 +107,7 @@ public class CodecWav implements ICodec {
 	 *            URL to an audio file to stream from.
 	 * @return False if an error occurred or if end of stream was reached.
 	 */
+	@Override
 	public boolean initialize(URL url) {
 		initialized(SET, false);
 		cleanup();
@@ -141,6 +143,7 @@ public class CodecWav implements ICodec {
 	 * 
 	 * @return True if steam is initialized.
 	 */
+	@Override
 	public boolean initialized() {
 		return initialized(GET, XXX);
 	}
@@ -152,6 +155,7 @@ public class CodecWav implements ICodec {
 	 * 
 	 * @return The audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer read() {
 		if (myAudioInputStream == null)
 			return null;
@@ -170,7 +174,7 @@ public class CodecWav implements ICodec {
 
 		// Allocate memory for the audio data:
 		byte[] streamBuffer = new byte[SoundSystemConfig
-		                               .getStreamingBufferSize()];
+				.getStreamingBufferSize()];
 
 		try {
 			// Read until buffer is full or end of stream is reached:
@@ -217,6 +221,7 @@ public class CodecWav implements ICodec {
 	 * 
 	 * @return the audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer readAll() {
 		// Check to make sure there is an audio format:
 		if (myAudioInputStream == null) {
@@ -241,8 +246,8 @@ public class CodecWav implements ICodec {
 		if (fileSize > 0) {
 			// Allocate memory for the audio data:
 			fullBuffer = new byte[myAudioFormat.getChannels()
-			                      * (int) myAudioInputStream.getFrameLength()
-			                      * myAudioFormat.getSampleSizeInBits() / 8];
+					* (int) myAudioInputStream.getFrameLength()
+					* myAudioFormat.getSampleSizeInBits() / 8];
 			int read = 0, total = 0;
 			try {
 				// Read until the end of the stream is reached:
@@ -321,6 +326,7 @@ public class CodecWav implements ICodec {
 	 * 
 	 * @return True if end of stream was reached.
 	 */
+	@Override
 	public boolean endOfStream() {
 		return endOfStream(GET, XXX);
 	}
@@ -329,6 +335,7 @@ public class CodecWav implements ICodec {
 	 * Closes the audio stream and remove references to all instantiated
 	 * objects.
 	 */
+	@Override
 	public void cleanup() {
 		if (myAudioInputStream != null)
 			try {
@@ -344,6 +351,7 @@ public class CodecWav implements ICodec {
 	 * 
 	 * @return Information wrapped into an AudioFormat context.
 	 */
+	@Override
 	public AudioFormat getAudioFormat() {
 		if (myAudioInputStream == null)
 			return null;
@@ -488,7 +496,7 @@ public class CodecWav implements ICodec {
 	 *            Message to print.
 	 */
 	private void errorMessage(String message) {
-		logger.errorMessage("CodecWav", message, 0);
+		logger.err("CodecJOrbis", message, 0);
 	}
 
 	/**
@@ -498,6 +506,6 @@ public class CodecWav implements ICodec {
 	 *            Exception containing the information to print.
 	 */
 	private void printStackTrace(Exception e) {
-		logger.printStackTrace(e, 1);
+		logger.printException(e);
 	}
 }

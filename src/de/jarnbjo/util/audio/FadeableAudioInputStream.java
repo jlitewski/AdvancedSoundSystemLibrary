@@ -18,11 +18,13 @@ public class FadeableAudioInputStream extends AudioInputStream {
       phi=0.0;
    }
 
-   public int read(byte[] b) throws IOException {
+   @Override
+public int read(byte[] b) throws IOException {
       return read(b, 0, b.length);
    }
 
-   public int read(byte[] b, int offset, int length) throws IOException {
+   @Override
+public int read(byte[] b, int offset, int length) throws IOException {
       int read=super.read(b, offset, length);
 
       //System.out.println("read "+read);
@@ -33,10 +35,10 @@ public class FadeableAudioInputStream extends AudioInputStream {
 
          for(int i=offset; i<offset+read; i+=4) {
             j=i;
-            l=((int)b[j++])&0xff;
-            l|=((int)b[j++])<<8;
-            r=((int)b[j++])&0xff;
-            r|=((int)b[j])<<8;
+            l=(b[j++])&0xff;
+            l|=(b[j++])<<8;
+            r=(b[j++])&0xff;
+            r|=(b[j])<<8;
 
             if(phi<Math.PI/2) {
                phi+=0.000015;

@@ -21,7 +21,6 @@
 package de.jarnbjo.ogg;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 /**
@@ -52,15 +51,18 @@ public class BasicStream implements PhysicalOggStream {
       los.checkFormat(firstPage);
    }
 
-   public Collection getLogicalStreams() {
+   @Override
+public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
-   public boolean isOpen() {
+   @Override
+public boolean isOpen() {
       return !closed;
    }
 
-   public void close() throws IOException {
+   @Override
+public void close() throws IOException {
       closed=true;
       sourceStream.close();
    }
@@ -75,7 +77,8 @@ public class BasicStream implements PhysicalOggStream {
 
    int pageNumber=2;
 
-   public OggPage getOggPage(int index) throws IOException {
+   @Override
+public OggPage getOggPage(int index) throws IOException {
       if(firstPage!=null) {
          OggPage tmp=firstPage;
          firstPage=null;
@@ -92,7 +95,8 @@ public class BasicStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
    }
 
-   public void setTime(long granulePosition) throws IOException {
+   @Override
+public void setTime(long granulePosition) throws IOException {
       throw new UnsupportedOperationException("Method not supported by this class");
    }
 
@@ -100,7 +104,8 @@ public class BasicStream implements PhysicalOggStream {
 	 *  @return always <code>false</code>
 	 */
 
-   public boolean isSeekable() {
+   @Override
+public boolean isSeekable() {
       return false;
    }
 

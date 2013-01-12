@@ -30,7 +30,8 @@ import com.jcraft.jogg.*;
 
 class Floor0 extends FuncFloor{
 
-  void pack(Object i, Buffer opb){
+  @Override
+void pack(Object i, Buffer opb){
     InfoFloor0 info=(InfoFloor0)i;
     opb.write(info.order, 8);
     opb.write(info.rate, 16);
@@ -42,7 +43,8 @@ class Floor0 extends FuncFloor{
       opb.write(info.books[j], 8);
   }
 
-  Object unpack(Info vi, Buffer opb){
+  @Override
+Object unpack(Info vi, Buffer opb){
     InfoFloor0 info=new InfoFloor0();
     info.order=opb.read(8);
     info.rate=opb.read(16);
@@ -64,7 +66,8 @@ class Floor0 extends FuncFloor{
     return (info);
   }
 
-  Object look(DspState vd, InfoMode mi, Object i){
+  @Override
+Object look(DspState vd, InfoMode mi, Object i){
     float scale;
     Info vi=vd.vi;
     InfoFloor0 info=(InfoFloor0)i;
@@ -109,16 +112,20 @@ class Floor0 extends FuncFloor{
     return (state);
   }
 
-  void free_info(Object i){
+  @Override
+void free_info(Object i){
   }
 
-  void free_look(Object i){
+  @Override
+void free_look(Object i){
   }
 
-  void free_state(Object vs){
+  @Override
+void free_state(Object vs){
   }
 
-  int forward(Block vb, Object i, float[] in, float[] out, Object vs){
+  @Override
+int forward(Block vb, Object i, float[] in, float[] out, Object vs){
     return 0;
   }
 
@@ -174,7 +181,8 @@ class Floor0 extends FuncFloor{
     return (0);
   }
 
-  Object inverse1(Block vb, Object i, Object memo){
+  @Override
+Object inverse1(Block vb, Object i, Object memo){
     LookFloor0 look=(LookFloor0)i;
     InfoFloor0 info=look.vi;
     float[] lsp=null;
@@ -218,7 +226,8 @@ class Floor0 extends FuncFloor{
     return (null);
   }
 
-  int inverse2(Block vb, Object i, Object memo, float[] out){
+  @Override
+int inverse2(Block vb, Object i, Object memo, float[] out){
     LookFloor0 look=(LookFloor0)i;
     InfoFloor0 info=look.vi;
 

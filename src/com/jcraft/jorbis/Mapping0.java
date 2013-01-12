@@ -31,13 +31,16 @@ import com.jcraft.jogg.*;
 class Mapping0 extends FuncMapping{
   static int seq=0;
 
-  void free_info(Object imap){
+  @Override
+void free_info(Object imap){
   };
 
-  void free_look(Object imap){
+  @Override
+void free_look(Object imap){
   }
 
-  Object look(DspState vd, InfoMode vm, Object m){
+  @Override
+Object look(DspState vd, InfoMode vm, Object m){
     //System.err.println("Mapping0.look");
     Info vi=vd.vi;
     LookMapping0 look=new LookMapping0();
@@ -77,7 +80,8 @@ class Mapping0 extends FuncMapping{
     return (look);
   }
 
-  void pack(Info vi, Object imap, Buffer opb){
+  @Override
+void pack(Info vi, Object imap, Buffer opb){
     InfoMapping0 info=(InfoMapping0)imap;
 
     /* another 'we meant to do it this way' hack...  up to beta 4, we
@@ -122,7 +126,8 @@ class Mapping0 extends FuncMapping{
   }
 
   // also responsible for range checking
-  Object unpack(Info vi, Buffer opb){
+  @Override
+Object unpack(Info vi, Buffer opb){
     InfoMapping0 info=new InfoMapping0();
 
     if(opb.read(1)!=0){
@@ -188,7 +193,8 @@ class Mapping0 extends FuncMapping{
   int[] nonzero=null;
   Object[] floormemo=null;
 
-  synchronized int inverse(Block vb, Object l){
+  @Override
+synchronized int inverse(Block vb, Object l){
     DspState vd=vb.vd;
     Info vi=vd.vi;
     LookMapping0 look=(LookMapping0)l;

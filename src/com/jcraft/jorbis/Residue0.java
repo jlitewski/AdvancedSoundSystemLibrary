@@ -29,7 +29,8 @@ package com.jcraft.jorbis;
 import com.jcraft.jogg.*;
 
 class Residue0 extends FuncResidue{
-  void pack(Object vr, Buffer opb){
+  @Override
+void pack(Object vr, Buffer opb){
     InfoResidue0 info=(InfoResidue0)vr;
     int acc=0;
     opb.write(info.begin, 24);
@@ -61,7 +62,8 @@ class Residue0 extends FuncResidue{
     }
   }
 
-  Object unpack(Info vi, Buffer opb){
+  @Override
+Object unpack(Info vi, Buffer opb){
     int acc=0;
     InfoResidue0 info=new InfoResidue0();
     info.begin=opb.read(24);
@@ -97,7 +99,8 @@ class Residue0 extends FuncResidue{
     return (info);
   }
 
-  Object look(DspState vd, InfoMode vm, Object vr){
+  @Override
+Object look(DspState vd, InfoMode vm, Object vr){
     InfoResidue0 info=(InfoResidue0)vr;
     LookResidue0 look=new LookResidue0();
     int acc=0;
@@ -147,10 +150,12 @@ class Residue0 extends FuncResidue{
     return (look);
   }
 
-  void free_info(Object i){
+  @Override
+void free_info(Object i){
   }
 
-  void free_look(Object i){
+  @Override
+void free_look(Object i){
   }
 
   private static int[][][] _01inverse_partword=new int[2][][]; // _01inverse is synchronized for
@@ -277,7 +282,8 @@ class Residue0 extends FuncResidue{
     return (0);
   }
 
-  int inverse(Block vb, Object vl, float[][] in, int[] nonzero, int ch){
+  @Override
+int inverse(Block vb, Object vl, float[][] in, int[] nonzero, int ch){
     int used=0;
     for(int i=0; i<ch; i++){
       if(nonzero[i]!=0){

@@ -117,7 +117,8 @@ public class NbDecoder
    * @param lpcSize
    * @param bufSize
    */
-  public void init(final int frameSize,
+  @Override
+public void init(final int frameSize,
                    final int subframeSize,
                    final int lpcSize,
                    final int bufSize)
@@ -142,7 +143,8 @@ public class NbDecoder
    * @throws StreamCorruptedException If there is an error detected in the
    * data stream.
    */
-  public int decode(final Bits bits, final float[] out)
+  @Override
+public int decode(final Bits bits, final float[] out)
     throws StreamCorruptedException
   {
     int i, sub, pitch, ol_pitch=0, m;
@@ -619,7 +621,8 @@ public class NbDecoder
    * array will contain the interlaced stereo audio samples.
    * @param frameSize - the size of a frame of mono audio samples.
    */
-  public void decodeStereo(final float[] data, final int frameSize)
+  @Override
+public void decodeStereo(final float[] data, final int frameSize)
   {
     stereo.decode(data, frameSize);
   }
@@ -628,7 +631,8 @@ public class NbDecoder
    * Enables or disables perceptual enhancement.
    * @param enhanced
    */
-  public void setPerceptualEnhancement(final boolean enhanced)
+  @Override
+public void setPerceptualEnhancement(final boolean enhanced)
   {
     this.enhanced = enhanced;
   }
@@ -637,7 +641,8 @@ public class NbDecoder
    * Returns whether perceptual enhancement is enabled or disabled.
    * @return whether perceptual enhancement is enabled or disabled.
    */
-  public boolean getPerceptualEnhancement()
+  @Override
+public boolean getPerceptualEnhancement()
   {
     return enhanced;
   }

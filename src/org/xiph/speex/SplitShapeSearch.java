@@ -144,7 +144,8 @@ public class SplitShapeSearch
    * @param bits     Speex bits buffer.
    * @param complexity
    */
-  public final void quant(float[] target, float[] ak, float[] awk1, float[] awk2,
+  @Override
+public final void quant(float[] target, float[] ak, float[] awk1, float[] awk2,
                           int p, int nsf, float[] exc, int es, float[] r,
                           Bits bits, int complexity)
   {
@@ -347,7 +348,8 @@ public class SplitShapeSearch
    * @param nsf - number of samples in subframe.
    * @param bits - Speex bits buffer.
    */
-  public final void unquant(float[] exc, int es, int nsf, Bits bits)
+  @Override
+public final void unquant(float[] exc, int es, int nsf, Bits bits)
   {
     int i,j;
 
@@ -366,7 +368,7 @@ public class SplitShapeSearch
       if (signs[i]!=0)
         s=-1.0f;
       for (j=0; j<subvect_size; j++){
-        exc[es+subvect_size*i+j]+=s*0.03125f*(float)shape_cb[ind[i]*subvect_size+j]; 
+        exc[es+subvect_size*i+j]+=s*0.03125f*shape_cb[ind[i]*subvect_size+j]; 
       }
     }
   }

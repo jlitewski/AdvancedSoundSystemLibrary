@@ -159,7 +159,8 @@ public class OggSpeexWriter
    * Closes the output file.
    * @exception IOException if there was an exception closing the Audio Writer.
    */
-  public void close()
+  @Override
+public void close()
     throws IOException 
   {
     flush(true);
@@ -171,7 +172,8 @@ public class OggSpeexWriter
    * @param file - file to open.
    * @exception IOException if there was an exception opening the Audio Writer.
    */
-  public void open(final File file)
+  @Override
+public void open(final File file)
     throws IOException
   {
     file.delete(); 
@@ -184,7 +186,8 @@ public class OggSpeexWriter
    * @param filename - file to open.
    * @exception IOException if there was an exception opening the Audio Writer.
    */
-  public void open(final String filename)
+  @Override
+public void open(final String filename)
     throws IOException 
   {
     open(new File(filename)); 
@@ -196,7 +199,8 @@ public class OggSpeexWriter
    * @param comment description to be included in the header.
    * @exception IOException
    */
-  public void writeHeader(final String comment)
+  @Override
+public void writeHeader(final String comment)
     throws IOException
   {
     int chksum;
@@ -229,7 +233,8 @@ public class OggSpeexWriter
    * @param len - the length of data to read.
    * @exception IOException
    */
-  public void writePacket(final byte[] data,
+  @Override
+public void writePacket(final byte[] data,
                           final int offset,
                           final int len)
     throws IOException 

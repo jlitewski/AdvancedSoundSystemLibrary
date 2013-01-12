@@ -276,7 +276,7 @@ public class Pcm2SpeexAudioInputStream
   {
     encoder.getEncoder().setQuality(quality);
     if (encoder.getEncoder().getVbr()) {
-      encoder.getEncoder().setVbrQuality((float)quality);
+      encoder.getEncoder().setVbrQuality(quality);
     }
   }
   
@@ -306,7 +306,8 @@ public class Pcm2SpeexAudioInputStream
    * hence pos > count.
    * @exception IOException
    */
-  protected void fill()
+  @Override
+protected void fill()
     throws IOException
   {
     makeSpace();
@@ -443,7 +444,8 @@ public class Pcm2SpeexAudioInputStream
    * @exception IOException if an I/O error occurs.
    * @see #in
    */
-  public synchronized int available()
+  @Override
+public synchronized int available()
     throws IOException
   {
     int avail = super.available();

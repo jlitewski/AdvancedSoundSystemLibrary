@@ -467,8 +467,8 @@ public class ChannelLWJGLOpenAL extends Channel
     {
         return( ( (float) AL10.alGetBufferi( alBufferi, AL10.AL_SIZE ) /
                 (float) AL10.alGetBufferi( alBufferi, AL10.AL_CHANNELS ) /
-                ( (float) AL10.alGetBufferi( alBufferi, AL10.AL_BITS ) / 8.0f ) /
-                (float) sampleRate ) * 1000 );
+                ( AL10.alGetBufferi( alBufferi, AL10.AL_BITS ) / 8.0f ) /
+                sampleRate ) * 1000 );
     }
 
 /**
@@ -479,7 +479,7 @@ public class ChannelLWJGLOpenAL extends Channel
     public float millisecondsPlayed()
     {
         // get number of samples played in current buffer
-        float offset = (float)AL10.alGetSourcei( ALSource.get( 0 ),
+        float offset = AL10.alGetSourcei( ALSource.get( 0 ),
                                                AL11.AL_BYTE_OFFSET );
 
         float bytesPerFrame = 1f;
@@ -501,7 +501,7 @@ public class ChannelLWJGLOpenAL extends Channel
                 break;
         }
 
-        offset = ( ( (float) offset / bytesPerFrame ) / (float) sampleRate )
+        offset = ( ( offset / bytesPerFrame ) / sampleRate )
                                                                          * 1000;
 
         // add the milliseconds from stream-buffers that played previously

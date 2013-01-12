@@ -305,7 +305,8 @@ public abstract class FilteredAudioInputStream
    * @exception  IOException if an I/O error occurs.
    * @see        #in
    */
-  public synchronized int read()
+  @Override
+public synchronized int read()
     throws IOException
   {
     if (read(single, 0, 1) == -1) {
@@ -351,7 +352,8 @@ public abstract class FilteredAudioInputStream
    *             the stream has been reached.
    * @exception  IOException  if an I/O error occurs.
    */
-  public synchronized int read(final byte[] b,
+  @Override
+public synchronized int read(final byte[] b,
                                final int off,
                                final int len)
     throws IOException
@@ -384,7 +386,8 @@ public abstract class FilteredAudioInputStream
    * @return     the actual number of bytes skipped.
    * @exception  IOException  if an I/O error occurs.
    */
-  public synchronized long skip(final long n)
+  @Override
+public synchronized long skip(final long n)
     throws IOException
   {
     checkIfStillOpen();
@@ -434,7 +437,8 @@ public abstract class FilteredAudioInputStream
    * @exception IOException if an I/O error occurs.
    * @see #in
    */
-  public synchronized int available()
+  @Override
+public synchronized int available()
     throws IOException
   {
     checkIfStillOpen();
@@ -449,7 +453,8 @@ public abstract class FilteredAudioInputStream
    *                      the mark position becomes invalid.
    * @see     #reset()
    */
-  public synchronized void mark(final int readlimit)
+  @Override
+public synchronized void mark(final int readlimit)
   {
     if (readlimit > buf.length - pos) { // not enough room
       byte[] newbuf;
@@ -482,7 +487,8 @@ public abstract class FilteredAudioInputStream
    *               if the mark has been invalidated.
    * @see #mark(int)
    */
-  public synchronized void reset()
+  @Override
+public synchronized void reset()
     throws IOException
   {
     checkIfStillOpen();
@@ -501,7 +507,8 @@ public abstract class FilteredAudioInputStream
    * @see     #mark(int)
    * @see     #reset()
    */
-  public boolean markSupported()
+  @Override
+public boolean markSupported()
   {
     return true;
   }
@@ -512,7 +519,8 @@ public abstract class FilteredAudioInputStream
    *
    * @exception IOException if an I/O error occurs.
    */
-  public synchronized void close()
+  @Override
+public synchronized void close()
     throws IOException
   {
     if (in == null)

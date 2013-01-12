@@ -85,7 +85,7 @@ public class Sound implements ISoundObject {
 		if(volume > 100) volume = 100;
 		if(volume < 0) volume = 0;
 
-		float convertedVolume = ((float)(volume/100));
+		float convertedVolume = (volume/100);
 		this.soundSystem.setVolume(this.getName(), convertedVolume);
 	}
 

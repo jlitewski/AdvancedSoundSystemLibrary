@@ -58,7 +58,8 @@ public class PlayerApplet
    * been loaded into the system. It is always called before the first time
    * that the <code>start</code> method is called.
    */
-  public void init()
+  @Override
+public void init()
   {
     System.out.println("****** Player Applet starting, copyright Wimba 2004");
     System.out.println("****** Version: " + Player.VERSION +
@@ -68,7 +69,8 @@ public class PlayerApplet
     // Some initialising should be done on the event-dispatching thread.
     try {
       SwingUtilities.invokeAndWait(new Runnable() {
-        public void run() {
+        @Override
+		public void run() {
           initGUI();
         }
       });
@@ -94,7 +96,8 @@ public class PlayerApplet
    * should start its execution. It is called after the <code>init</code>
    * method and each time the applet is revisited in a Web page.
    */
-  public void start() {
+  @Override
+public void start() {
     player.start();
   }
 
@@ -104,7 +107,8 @@ public class PlayerApplet
    * this applet has been replaced by another page, and also just before the
    * applet is to be destroyed.
    */
-  public void stop() {
+  @Override
+public void stop() {
     player.stop();
   }
   
@@ -114,7 +118,8 @@ public class PlayerApplet
    * allocated. The <code>stop</code> method will always be called before
    * <code>destroy</code>.
    */
-  public void destroy()
+  @Override
+public void destroy()
   {
     player = null;
   }

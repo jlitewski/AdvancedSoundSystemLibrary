@@ -155,9 +155,12 @@ public class Player
     player.init();
     JFrame frame = new JFrame("Player");
     frame.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {System.exit(0);}
-      public void windowDeiconified(WindowEvent e) { player.start(); }
-      public void windowIconified(WindowEvent e) { player.stop(); }
+      @Override
+	public void windowClosing(WindowEvent e) {System.exit(0);}
+      @Override
+	public void windowDeiconified(WindowEvent e) { player.start(); }
+      @Override
+	public void windowIconified(WindowEvent e) { player.stop(); }
     });
     frame.getContentPane().add("Center", player);
     frame.pack();
@@ -353,7 +356,8 @@ public class Player
      * The code that runs in the thread and fills the JavaSound playback buffer.
      * Implemented from Runnable interface.
      */
-    public void run()
+    @Override
+	public void run()
     {
       while (thread != null && state == STATE_PLAYING && read != -1) {
         if (written >= read) {
@@ -393,7 +397,8 @@ public class Player
    * Implemented from ActionListener interface.
    * @param e
    */
-  public void actionPerformed(final ActionEvent e) {
+  @Override
+public void actionPerformed(final ActionEvent e) {
     if (e.getSource() == timer) {
       progressBar.setValue(getProgress());
     }

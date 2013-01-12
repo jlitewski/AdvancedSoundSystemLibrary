@@ -390,7 +390,7 @@ public class SourceLWJGLOpenAL extends Source
         {
             AL10.alSourcef( channelOpenAL.ALSource.get( 0 ),
                             AL10.AL_GAIN, (gain * sourceVolume
-                                           * (float) Math.abs( fadeOutGain )
+                                           * Math.abs( fadeOutGain )
                                            * fadeInGain) );
             checkALError();
         }

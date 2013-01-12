@@ -110,7 +110,8 @@ public class Ltp3Tap
    * Long Term Prediction Quantification (3Tap).
    * @return pitch
    */
-  public final int quant(float[] target, float[] sw, int sws, float[] ak, float[] awk1, float[] awk2,
+  @Override
+public final int quant(float[] target, float[] sw, int sws, float[] ak, float[] awk1, float[] awk2,
                          float[] exc, int es, int start, int end, float pitch_coef, int p, 
                          int nsf, Bits bits, float[] exc2, int e2s, float[] r, int complexity)
   {
@@ -182,7 +183,8 @@ public class Ltp3Tap
    * @param last_pitch_gain
    * @return pitch
    */
-  public final int unquant(float[] exc, int es, int start, float pitch_coef,  
+  @Override
+public final int unquant(float[] exc, int es, int start, float pitch_coef,  
                            int nsf, float[] gain_val, Bits bits,
                            int count_lost, int subframe_offset, float last_pitch_gain)
   {
@@ -192,9 +194,9 @@ public class Ltp3Tap
     pitch      += start;
     gain_index  = bits.unpack(gain_bits);
     
-    gain[0] = 0.015625f*(float)gain_cdbk[gain_index*3]+.5f;
-    gain[1] = 0.015625f*(float)gain_cdbk[gain_index*3+1]+.5f;
-    gain[2] = 0.015625f*(float)gain_cdbk[gain_index*3+2]+.5f;
+    gain[0] = 0.015625f*gain_cdbk[gain_index*3]+.5f;
+    gain[1] = 0.015625f*gain_cdbk[gain_index*3+1]+.5f;
+    gain[2] = 0.015625f*gain_cdbk[gain_index*3+2]+.5f;
     
     if (count_lost != 0 && pitch > subframe_offset)
     {

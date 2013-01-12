@@ -32,7 +32,8 @@ class Floor1 extends FuncFloor{
   static final int floor1_rangedb=140;
   static final int VIF_POSIT=63;
 
-  void pack(Object i, Buffer opb){
+  @Override
+void pack(Object i, Buffer opb){
     InfoFloor1 info=(InfoFloor1)i;
 
     int count=0;
@@ -73,7 +74,8 @@ class Floor1 extends FuncFloor{
     }
   }
 
-  Object unpack(Info vi, Buffer opb){
+  @Override
+Object unpack(Info vi, Buffer opb){
     int count=0, maxclass=-1, rangebits;
     InfoFloor1 info=new InfoFloor1();
 
@@ -129,7 +131,8 @@ class Floor1 extends FuncFloor{
     return (info);
   }
 
-  Object look(DspState vd, InfoMode mi, Object i){
+  @Override
+Object look(DspState vd, InfoMode mi, Object i){
     int _n=0;
 
     int[] sortpointer=new int[VIF_POSIT+2];
@@ -228,20 +231,25 @@ class Floor1 extends FuncFloor{
     return look;
   }
 
-  void free_info(Object i){
+  @Override
+void free_info(Object i){
   }
 
-  void free_look(Object i){
+  @Override
+void free_look(Object i){
   }
 
-  void free_state(Object vs){
+  @Override
+void free_state(Object vs){
   }
 
-  int forward(Block vb, Object i, float[] in, float[] out, Object vs){
+  @Override
+int forward(Block vb, Object i, float[] in, float[] out, Object vs){
     return 0;
   }
 
-  Object inverse1(Block vb, Object ii, Object memo){
+  @Override
+Object inverse1(Block vb, Object ii, Object memo){
     LookFloor1 look=(LookFloor1)ii;
     InfoFloor1 info=look.vi;
     CodeBook[] books=vb.vd.fullbooks;
@@ -348,14 +356,15 @@ class Floor1 extends FuncFloor{
       int ady=Math.abs(dy);
       int err=ady*(x-x0);
 
-      int off=(int)(err/adx);
+      int off=err/adx;
       if(dy<0)
         return (y0-off);
       return (y0+off);
     }
   }
 
-  int inverse2(Block vb, Object i, Object memo, float[] out){
+  @Override
+int inverse2(Block vb, Object i, Object memo, float[] out){
     LookFloor1 look=(LookFloor1)i;
     InfoFloor1 info=look.vi;
     int n=vb.vd.vi.blocksizes[vb.mode]/2;

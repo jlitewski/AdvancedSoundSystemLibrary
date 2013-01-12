@@ -190,7 +190,7 @@ public class VorbisStream {
       if(packet.length==0) {
          throw new VorbisFormatException("Cannot decode a vorbis packet with length = 0");
       }
-      if(((int)packet[0]&1)==1) {
+      if((packet[0]&1)==1) {
          // header packet
          BitInputStream source=new ByteArrayBitInputStream(packet);
          switch(source.getInt(8)) {

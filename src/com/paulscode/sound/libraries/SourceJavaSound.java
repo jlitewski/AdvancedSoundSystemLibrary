@@ -456,7 +456,7 @@ public class SourceJavaSound extends Source {
 			gain = 0.0f;
 
 		gain *= sourceVolume * SoundSystemConfig.getMasterGain()
-				* (float) Math.abs(fadeOutGain) * fadeInGain;
+				* Math.abs(fadeOutGain) * fadeInGain;
 
 		// update the channel's gain:
 		if (channel != null && channel.attachedSource == this

@@ -9,10 +9,10 @@ import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 import javax.sound.sampled.AudioFormat;
 
+import com.hackhalo2.rendering.RenderLogger;
 import com.paulscode.sound.ICodec;
 import com.paulscode.sound.SoundBuffer;
 import com.paulscode.sound.SoundSystemConfig;
-import com.paulscode.sound.SoundSystemLogger;
 
 import ibxm.FastTracker2;
 import ibxm.IBXM;
@@ -144,7 +144,7 @@ public class CodecIBXM implements ICodec {
 	/**
 	 * Processes status messages, warnings, and error messages.
 	 */
-	private SoundSystemLogger logger;
+	private RenderLogger logger;
 
 	/**
 	 * Constructor: Grabs a handle to the logger.
@@ -164,6 +164,7 @@ public class CodecIBXM implements ICodec {
 	 * @param b
 	 *            True if the calling audio library requires byte-reversal.
 	 */
+	@Override
 	public void reverseByteOrder(boolean b) {
 		reverseBytes = b;
 	}
@@ -176,6 +177,7 @@ public class CodecIBXM implements ICodec {
 	 *            URL to an audio file to stream from.
 	 * @return False if an error occurred or if end of stream was reached.
 	 */
+	@Override
 	public boolean initialize(URL url) {
 		initialized(SET, false);
 		cleanup();
@@ -242,6 +244,7 @@ public class CodecIBXM implements ICodec {
 	 * 
 	 * @return True if steam is initialized.
 	 */
+	@Override
 	public boolean initialized() {
 		return initialized(GET, XXX);
 	}
@@ -253,6 +256,7 @@ public class CodecIBXM implements ICodec {
 	 * 
 	 * @return The audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer read() {
 		if (endOfStream(GET, XXX))
 			return null;
@@ -268,7 +272,7 @@ public class CodecIBXM implements ICodec {
 			return null;
 		}
 
-		int bufferFrameSize = (int) SoundSystemConfig.getStreamingBufferSize() / 4;
+		int bufferFrameSize = SoundSystemConfig.getStreamingBufferSize() / 4;
 
 		int frames = songDuration - playPosition;
 		if (frames > bufferFrameSize)
@@ -305,6 +309,7 @@ public class CodecIBXM implements ICodec {
 	 * 
 	 * @return the audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer readAll() {
 		if (module == null) {
 			errorMessage("Module null in method 'readAll'");
@@ -317,7 +322,7 @@ public class CodecIBXM implements ICodec {
 			return null;
 		}
 
-		int bufferFrameSize = (int) SoundSystemConfig.getFileChunkSize() / 4;
+		int bufferFrameSize = SoundSystemConfig.getFileChunkSize() / 4;
 
 		byte[] outputBuffer = new byte[bufferFrameSize * 4];
 
@@ -359,6 +364,7 @@ public class CodecIBXM implements ICodec {
 	 * 
 	 * @return True if end of stream was reached.
 	 */
+	@Override
 	public boolean endOfStream() {
 		return endOfStream(GET, XXX);
 	}
@@ -367,6 +373,7 @@ public class CodecIBXM implements ICodec {
 	 * Closes the audio stream and remove references to all instantiated
 	 * objects.
 	 */
+	@Override
 	public void cleanup() {
 		// if( ibxm != null )
 		// ibxm.seek( 0 );
@@ -379,6 +386,7 @@ public class CodecIBXM implements ICodec {
 	 * 
 	 * @return Information wrapped into an AudioFormat context.
 	 */
+	@Override
 	public AudioFormat getAudioFormat() {
 		return myAudioFormat;
 	}
@@ -595,7 +603,7 @@ public class CodecIBXM implements ICodec {
 	 *            Message to print.
 	 */
 	private void errorMessage(String message) {
-		logger.errorMessage("CodecWav", message, 0);
+		logger.err("IBXM", message, 0);
 	}
 
 	/**
@@ -605,6 +613,6 @@ public class CodecIBXM implements ICodec {
 	 *            Exception containing the information to print.
 	 */
 	private void printStackTrace(Exception e) {
-		logger.printStackTrace(e, 1);
+		logger.printException(e);
 	}
 }

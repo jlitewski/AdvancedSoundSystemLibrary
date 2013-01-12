@@ -130,7 +130,8 @@ public class SbEncoder
   /**
    * Wideband initialisation
    */
-  public void wbinit()
+  @Override
+public void wbinit()
   {
     lowenc = new NbEncoder();
     ((NbEncoder)lowenc).nbinit();
@@ -146,7 +147,8 @@ public class SbEncoder
   /**
    * Ultra-wideband initialisation
    */
-  public void uwbinit()
+  @Override
+public void uwbinit()
   {
     lowenc = new SbEncoder();
     ((SbEncoder)lowenc).wbinit();
@@ -167,7 +169,8 @@ public class SbEncoder
    * @param bufSize
    * @param foldingGain
    */
-  public void init(final int frameSize,
+  @Override
+public void init(final int frameSize,
                    final int subframeSize,
                    final int lpcSize,
                    final int bufSize,
@@ -214,7 +217,8 @@ public class SbEncoder
    * @param in - the raw mono audio frame to encode.
    * @return 1 if successful.
    */
-  public int encode(final Bits bits, final float[] in)
+  @Override
+public int encode(final Bits bits, final float[] in)
   {
     int i;
     float[] mem, innov, syn_resp;
@@ -269,7 +273,7 @@ public class SbEncoder
       if (roots != lpcSize) {
         /*If we can't find all LSP's, do some damage control and use a flat filter*/
         for (i=0; i<lpcSize; i++) {
-          lsp[i]=(float)Math.cos(Math.PI*((float)(i+1))/(lpcSize+1));
+          lsp[i]=(float)Math.cos(Math.PI*(i+1)/(lpcSize+1));
         }
       }
     }
@@ -606,7 +610,8 @@ public class SbEncoder
    * Returns the size in bits of an audio frame encoded with the current mode.
    * @return the size in bits of an audio frame encoded with the current mode.
    */
-  public int getEncodedFrameSize()
+  @Override
+public int getEncodedFrameSize()
   {
     int size = SB_FRAME_SIZE[submodeID];
     size += lowenc.getEncodedFrameSize();
@@ -621,7 +626,8 @@ public class SbEncoder
    * Sets the Quality.
    * @param quality
    */
-  public void setQuality(int quality)
+  @Override
+public void setQuality(int quality)
   {
     if (quality < 0) {
       quality = 0;
@@ -643,7 +649,8 @@ public class SbEncoder
    * Sets the Varible Bit Rate Quality.
    * @param quality
    */
-  public void setVbrQuality(float quality)
+  @Override
+public void setVbrQuality(float quality)
   {
     vbr_quality = quality;
     float qual = quality + 0.6f;
@@ -660,7 +667,8 @@ public class SbEncoder
    * Sets whether or not to use Variable Bit Rate encoding.
    * @param vbr
    */
-  public void    setVbr(final boolean vbr)
+  @Override
+public void    setVbr(final boolean vbr)
   {
 //    super.setVbr(vbr);
     vbr_enabled = vbr ? 1 : 0;
@@ -671,7 +679,8 @@ public class SbEncoder
    * Sets the Average Bit Rate.
    * @param abr
    */
-  public void    setAbr(final int abr)
+  @Override
+public void    setAbr(final int abr)
   {
     lowenc.setVbr(true);
 //    super.setAbr(abr);
@@ -703,7 +712,8 @@ public class SbEncoder
    * Returns the bitrate.
    * @return the bitrate.
    */
-  public int getBitRate()
+  @Override
+public int getBitRate()
   {
     if (submodes[submodeID] != null)
       return lowenc.getBitRate() + sampling_rate*submodes[submodeID].bits_per_frame/frameSize;
@@ -715,7 +725,8 @@ public class SbEncoder
    * Sets the sampling rate.
    * @param rate
    */
-  public void setSamplingRate(final int rate)
+  @Override
+public void setSamplingRate(final int rate)
   {
 //    super.setSamplingRate(rate);
     sampling_rate = rate;
@@ -726,7 +737,8 @@ public class SbEncoder
    * Return LookAhead.
    * @return LookAhead.
    */
-  public int getLookAhead()
+  @Override
+public int getLookAhead()
   {
     return 2*lowenc.getLookAhead() + QMF_ORDER - 1;
   }
@@ -745,7 +757,8 @@ public class SbEncoder
    * Sets the encoding submode.
    * @param mode
    */
-  public void setMode(int mode)
+  @Override
+public void setMode(int mode)
   {
     if (mode < 0) {
       mode = 0;
@@ -757,7 +770,8 @@ public class SbEncoder
    * Returns the encoding submode currently in use.
    * @return the encoding submode currently in use.
    */
-  public int getMode()
+  @Override
+public int getMode()
   {
     return submodeID;
   }
@@ -766,7 +780,8 @@ public class SbEncoder
    * Sets the bitrate.
    * @param bitrate
    */
-  public void setBitRate(final int bitrate)
+  @Override
+public void setBitRate(final int bitrate)
   {
     for (int i=10; i>=0; i--) {
       setQuality(i);
@@ -779,7 +794,8 @@ public class SbEncoder
    * Returns whether or not we are using Variable Bit Rate encoding.
    * @return whether or not we are using Variable Bit Rate encoding.
    */
-  public boolean getVbr()
+  @Override
+public boolean getVbr()
   {
     return vbr_enabled != 0;
   }
@@ -788,7 +804,8 @@ public class SbEncoder
    * Sets whether or not to use Voice Activity Detection encoding.
    * @param vad
    */
-  public void setVad(final boolean vad)
+  @Override
+public void setVad(final boolean vad)
   {
     vad_enabled = vad ? 1 : 0;
   }
@@ -797,7 +814,8 @@ public class SbEncoder
    * Returns whether or not we are using Voice Activity Detection encoding.
    * @return whether or not we are using Voice Activity Detection encoding.
    */
-  public boolean getVad()
+  @Override
+public boolean getVad()
   {
     return vad_enabled != 0;
   }
@@ -806,7 +824,8 @@ public class SbEncoder
    * Sets whether or not to use Discontinuous Transmission encoding.
    * @param dtx
    */
-  public void setDtx(final boolean dtx)
+  @Override
+public void setDtx(final boolean dtx)
   {
     dtx_enabled = dtx ? 1 : 0;
   }
@@ -815,7 +834,8 @@ public class SbEncoder
    * Returns the Average Bit Rate used (0 if ABR is not turned on).
    * @return the Average Bit Rate used (0 if ABR is not turned on).
    */
-  public int getAbr()
+  @Override
+public int getAbr()
   {
     return abr_enabled;
   }
@@ -824,7 +844,8 @@ public class SbEncoder
    * Returns the Varible Bit Rate Quality.
    * @return the Varible Bit Rate Quality.
    */
-  public float getVbrQuality()
+  @Override
+public float getVbrQuality()
   {
     return vbr_quality;
   }
@@ -833,7 +854,8 @@ public class SbEncoder
    * Sets the algorthmic complexity.
    * @param complexity
    */
-  public void setComplexity(int complexity)
+  @Override
+public void setComplexity(int complexity)
   {
     if (complexity < 0)
       complexity = 0;
@@ -846,7 +868,8 @@ public class SbEncoder
    * Returns the algorthmic complexity.
    * @return the algorthmic complexity.
    */
-  public int getComplexity()
+  @Override
+public int getComplexity()
   {
     return complexity;
   }
@@ -856,7 +879,8 @@ public class SbEncoder
    * Returns the sampling rate.
    * @return the sampling rate.
    */
-  public int getSamplingRate()
+  @Override
+public int getSamplingRate()
   {
     return sampling_rate;
   }
@@ -865,7 +889,8 @@ public class SbEncoder
    * Returns the relative quality.
    * @return the relative quality.
    */
-  public float getRelativeQuality()
+  @Override
+public float getRelativeQuality()
   {
     return relative_quality;
   }

@@ -87,7 +87,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioFileFormat getAudioFileFormat(final File file)
+  @Override
+public AudioFileFormat getAudioFileFormat(final File file)
     throws UnsupportedAudioFileException, IOException
   {
     InputStream inputStream = null;
@@ -110,7 +111,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioFileFormat getAudioFileFormat(final URL url)
+  @Override
+public AudioFileFormat getAudioFileFormat(final URL url)
     throws UnsupportedAudioFileException, IOException
   {
     InputStream inputStream = url.openStream();
@@ -132,7 +134,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioFileFormat getAudioFileFormat(final InputStream stream)
+  @Override
+public AudioFileFormat getAudioFileFormat(final InputStream stream)
     throws UnsupportedAudioFileException, IOException
   {
     return getAudioFileFormat(stream, AudioSystem.NOT_SPECIFIED);
@@ -248,10 +251,10 @@ public class SpeexAudioFileReader
       }
       // Calculate frameRate
       if (mode >= 0 && mode <= 2 && nframes > 0) {
-        frameRate = ((float) sampleRate) /
-                    ((mode == 0 ? 160f : (mode == 1 ? 320f : 640f)) * ((float) nframes));
+        frameRate = (sampleRate) /
+                    ((mode == 0 ? 160f : (mode == 1 ? 320f : 640f)) * (nframes));
       }
-      format = new AudioFormat(SpeexEncoding.SPEEX, (float)sampleRate,
+      format = new AudioFormat(SpeexEncoding.SPEEX, sampleRate,
                                AudioSystem.NOT_SPECIFIED, channels, frameSize,
                                frameRate, false);
     }
@@ -284,7 +287,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioInputStream getAudioInputStream(final File file)
+  @Override
+public AudioInputStream getAudioInputStream(final File file)
     throws UnsupportedAudioFileException, IOException
   {
     InputStream inputStream = new FileInputStream(file);
@@ -311,7 +315,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioInputStream getAudioInputStream(final URL url)
+  @Override
+public AudioInputStream getAudioInputStream(final URL url)
     throws UnsupportedAudioFileException, IOException
   {
     InputStream inputStream = url.openStream();
@@ -339,7 +344,8 @@ public class SpeexAudioFileReader
    * a valid audio file data recognized by the system.
    * @exception IOException if an I/O exception occurs.
    */
-  public AudioInputStream getAudioInputStream(final InputStream stream)
+  @Override
+public AudioInputStream getAudioInputStream(final InputStream stream)
     throws UnsupportedAudioFileException, IOException
   {
     return getAudioInputStream(stream, AudioSystem.NOT_SPECIFIED);

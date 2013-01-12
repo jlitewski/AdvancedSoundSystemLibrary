@@ -60,13 +60,15 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       granulePositions.add(new Long(granulePosition));
    }
 
-   public synchronized void reset() throws OggFormatException, IOException {
+   @Override
+public synchronized void reset() throws OggFormatException, IOException {
       currentPage=null;
       currentSegmentIndex=0;
       pageIndex=0;
    }
 
-   public synchronized OggPage getNextOggPage() throws EndOfOggStreamException, OggFormatException, IOException {
+   @Override
+public synchronized OggPage getNextOggPage() throws EndOfOggStreamException, OggFormatException, IOException {
       if(source.isSeekable()) {
          currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)).intValue());
       }
@@ -76,7 +78,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       return currentPage;
    }
 
-   public synchronized byte[] getNextOggPacket() throws EndOfOggStreamException, OggFormatException, IOException {
+   @Override
+public synchronized byte[] getNextOggPacket() throws EndOfOggStreamException, OggFormatException, IOException {
       ByteArrayOutputStream res=new ByteArrayOutputStream();
       int segmentLength=0;
 
@@ -124,24 +127,29 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       return res.toByteArray();
    }
 
-   public boolean isOpen() {
+   @Override
+public boolean isOpen() {
       return open;
    }
 
-   public void close() throws IOException {
+   @Override
+public void close() throws IOException {
       open=false;
    }
 
-   public long getMaximumGranulePosition() {
+   @Override
+public long getMaximumGranulePosition() {
       Long mgp=(Long)granulePositions.get(granulePositions.size()-1);
       return mgp.longValue();
    }
 
-   public synchronized long getTime() {
+   @Override
+public synchronized long getTime() {
       return currentPage!=null?currentPage.getAbsoluteGranulePosition():-1;
    }
 
-   public synchronized void setTime(long granulePosition) throws IOException {
+   @Override
+public synchronized void setTime(long granulePosition) throws IOException {
 
       int page=0;
       for(page=0; page<granulePositions.size(); page++) {
@@ -201,7 +209,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       }
    }
 
-   public String getFormat() {
+   @Override
+public String getFormat() {
       return format;
    }
 }

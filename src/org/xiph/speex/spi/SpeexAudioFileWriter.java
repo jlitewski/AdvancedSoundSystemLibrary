@@ -64,7 +64,8 @@ public class SpeexAudioFileWriter
    * Obtains the file types for which file writing support is provided by this audio file writer.
    * @return array of file types. If no file types are supported, an array of length 0 is returned.
    */
-  public AudioFileFormat.Type[] getAudioFileTypes()
+  @Override
+public AudioFileFormat.Type[] getAudioFileTypes()
   {
     return SPEEX_FORMAT;
   }
@@ -77,7 +78,8 @@ public class SpeexAudioFileWriter
    * @return array of file types. If no file types are supported, an array of
    * length 0 is returned.
    */
-  public AudioFileFormat.Type[] getAudioFileTypes(final AudioInputStream stream)
+  @Override
+public AudioFileFormat.Type[] getAudioFileTypes(final AudioInputStream stream)
   {
     if (stream.getFormat().getEncoding() instanceof SpeexEncoding) {
       return SPEEX_FORMAT;
@@ -104,7 +106,8 @@ public class SpeexAudioFileWriter
    * @see #isFileTypeSupported(AudioFileFormat.Type, AudioInputStream)
    * @see #getAudioFileTypes()
    */
-  public int write(final AudioInputStream stream,
+  @Override
+public int write(final AudioInputStream stream,
                    final AudioFileFormat.Type fileType,
                    final OutputStream out)
     throws IOException
@@ -131,7 +134,8 @@ public class SpeexAudioFileWriter
    * @see #isFileTypeSupported(javax.sound.sampled.AudioFileFormat.Type)
    * @see #getAudioFileTypes()
    */
-  public int write(final AudioInputStream stream,
+  @Override
+public int write(final AudioInputStream stream,
                    final AudioFileFormat.Type fileType,
                    final File out)
     throws IOException

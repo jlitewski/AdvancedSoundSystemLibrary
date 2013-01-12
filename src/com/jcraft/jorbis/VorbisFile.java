@@ -1094,7 +1094,7 @@ public class VorbisFile{
       }
     }
 
-    return ((float)time_total+(float)(pcm_offset-pcm_total)/vi[link].rate);
+    return (time_total+(float)(pcm_offset-pcm_total)/vi[link].rate);
   }
 
   //  link:   -1) return the vorbis_info struct for the bitstream section
@@ -1347,20 +1347,24 @@ public class VorbisFile{
       raf=new java.io.RandomAccessFile(file, mode);
     }
 
-    public int read() throws java.io.IOException{
+    @Override
+	public int read() throws java.io.IOException{
       return raf.read();
     }
 
-    public int read(byte[] buf) throws java.io.IOException{
+    @Override
+	public int read(byte[] buf) throws java.io.IOException{
       return raf.read(buf);
     }
 
-    public int read(byte[] buf, int s, int len) throws java.io.IOException{
+    @Override
+	public int read(byte[] buf, int s, int len) throws java.io.IOException{
       return raf.read(buf, s, len);
     }
 
-    public long skip(long n) throws java.io.IOException{
-      return (long)(raf.skipBytes((int)n));
+    @Override
+	public long skip(long n) throws java.io.IOException{
+      return (raf.skipBytes((int)n));
     }
 
     public long getLength() throws java.io.IOException{
@@ -1371,21 +1375,26 @@ public class VorbisFile{
       return raf.getFilePointer();
     }
 
-    public int available() throws java.io.IOException{
+    @Override
+	public int available() throws java.io.IOException{
       return (raf.length()==raf.getFilePointer()) ? 0 : 1;
     }
 
-    public void close() throws java.io.IOException{
+    @Override
+	public void close() throws java.io.IOException{
       raf.close();
     }
 
-    public synchronized void mark(int m){
+    @Override
+	public synchronized void mark(int m){
     }
 
-    public synchronized void reset() throws java.io.IOException{
+    @Override
+	public synchronized void reset() throws java.io.IOException{
     }
 
-    public boolean markSupported(){
+    @Override
+	public boolean markSupported(){
       return false;
     }
 

@@ -235,7 +235,7 @@ public class SpeexEncoder
     }
     // convert shorts into float samples,
     for (int i=0; i<numShorts; i++) {
-      rawData[i] = (float) data[offset + i ];
+      rawData[i] = data[offset + i ];
     }
     // encode the bitstream
     return processData(rawData, numShorts);
@@ -289,7 +289,7 @@ public class SpeexEncoder
       throw new IllegalArgumentException("Insufficient float buffer to convert the samples");
     }
     for (int i = 0; i < length; i++) {
-      samples[offsetOutput+i] = (float)((pcm16bitBytes[offsetInput+2*i] & 0xff) | (pcm16bitBytes[offsetInput+2*i+1] << 8)); // no & 0xff at the end to keep the sign
+      samples[offsetOutput+i] = (pcm16bitBytes[offsetInput+2*i] & 0xff) | (pcm16bitBytes[offsetInput+2*i+1] << 8); // no & 0xff at the end to keep the sign
     }
   }
 }

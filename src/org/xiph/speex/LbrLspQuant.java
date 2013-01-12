@@ -85,7 +85,8 @@ public class LbrLspQuant
    * @param order
    * @param bits - Speex bits buffer.
    */
-  public final void quant(final float[] lsp,
+  @Override
+public final void quant(final float[] lsp,
                           final float[] qlsp,
                           final int order,
                           final Bits bits)
@@ -132,7 +133,8 @@ public class LbrLspQuant
    * @param order
    * @param bits - Speex bits buffer.
    */
-  public final void unquant(final float[] lsp,
+  @Override
+public final void unquant(final float[] lsp,
                             final int order,
                             final Bits bits) 
   {        

@@ -106,35 +106,43 @@ class Mapping0 extends Mapping {
       }
    }
 
-   protected int getType() {
+   @Override
+protected int getType() {
       return 0;
    }
 
-   protected int[] getAngles() {
+   @Override
+protected int[] getAngles() {
       return angles;
    }
 
-   protected int[] getMagnitudes() {
+   @Override
+protected int[] getMagnitudes() {
       return magnitudes;
    }
 
-   protected int[] getMux() {
+   @Override
+protected int[] getMux() {
       return mux;
    }
 
-   protected int[] getSubmapFloors() {
+   @Override
+protected int[] getSubmapFloors() {
       return submapFloors;
    }
 
-   protected int[] getSubmapResidues() {
+   @Override
+protected int[] getSubmapResidues() {
       return submapResidues;
    }
 
-   protected int getCouplingSteps() {
+   @Override
+protected int getCouplingSteps() {
       return angles.length;
    }
 
-   protected int getSubmaps() {
+   @Override
+protected int getSubmaps() {
       return submapFloors.length;
    }
 }

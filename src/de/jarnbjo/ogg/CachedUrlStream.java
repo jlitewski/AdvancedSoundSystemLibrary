@@ -94,15 +94,18 @@ public class CachedUrlStream implements PhysicalOggStream {
       //System.out.println("caching "+pageOffsets.size()+"/20 pages\r");
    }
 
-   public Collection getLogicalStreams() {
+   @Override
+public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
-   public boolean isOpen() {
+   @Override
+public boolean isOpen() {
       return !closed;
    }
 
-   public void close() throws IOException {
+   @Override
+public void close() throws IOException {
       closed=true;
       sourceStream.close();
    }
@@ -121,7 +124,8 @@ public class CachedUrlStream implements PhysicalOggStream {
    }
    */
 
-   public OggPage getOggPage(int index) throws IOException {
+   @Override
+public OggPage getOggPage(int index) throws IOException {
       synchronized(drainLock) {
          Long offset=(Long)pageOffsets.get(index);
          Long length=(Long)pageLengths.get(index);
@@ -146,7 +150,8 @@ public class CachedUrlStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
    }
 
-   public void setTime(long granulePosition) throws IOException {
+   @Override
+public void setTime(long granulePosition) throws IOException {
       for(Iterator iter=logicalStreams.values().iterator(); iter.hasNext(); ) {
          LogicalOggStream los=(LogicalOggStream)iter.next();
          los.setTime(granulePosition);
@@ -169,7 +174,8 @@ public class CachedUrlStream implements PhysicalOggStream {
          this.memoryCache=memoryCache;
       }
 
-      public void run() {
+      @Override
+	public void run() {
          try {
             boolean eos=false;
             byte[] buffer=new byte[8192];
@@ -240,7 +246,8 @@ public class CachedUrlStream implements PhysicalOggStream {
       }
    }
 
-   public boolean isSeekable() {
+   @Override
+public boolean isSeekable() {
       return true;
    }
 }

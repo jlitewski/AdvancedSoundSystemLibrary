@@ -58,17 +58,19 @@ public class RecorderApplet
    * been loaded into the system. It is always called before the first time
    * that the <code>start</code> method is called.
    */
-  public void init()
+  @Override
+public void init()
   {
     System.out.println("****** Recorder Applet starting, copyright Wimba 2004");
-    System.out.println("****** Version: " + Recorder.VERSION +
+    System.out.println("****** Version: " + Player.VERSION +
                        ", Revision: " + Recorder.REVISION +
-                       ", build: " + Recorder.BUILD);
+                       ", build: " + Player.BUILD);
     filename = getParameter("file");
     // Some initialising should be done on the event-dispatching thread.
     try {
       SwingUtilities.invokeAndWait(new Runnable() {
-        public void run() {
+        @Override
+		public void run() {
           initGUI();
         }
       });
@@ -94,7 +96,8 @@ public class RecorderApplet
    * should start its execution. It is called after the <code>init</code>
    * method and each time the applet is revisited in a Web page.
    */
-  public void start() {
+  @Override
+public void start() {
     recorder.start();
   }
 
@@ -104,7 +107,8 @@ public class RecorderApplet
    * this applet has been replaced by another page, and also just before the
    * applet is to be destroyed.
    */
-  public void stop() {
+  @Override
+public void stop() {
     recorder.stop();
   }
   
@@ -114,7 +118,8 @@ public class RecorderApplet
    * allocated. The <code>stop</code> method will always be called before
    * <code>destroy</code>.
    */
-  public void destroy()
+  @Override
+public void destroy()
   {
     recorder = null;
   }

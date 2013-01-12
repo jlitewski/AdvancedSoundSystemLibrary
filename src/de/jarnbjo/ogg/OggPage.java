@@ -201,7 +201,7 @@ public class OggPage {
             readFully((InputStream)source, header);
          }
          else if(source instanceof byte[]) {
-            System.arraycopy((byte[])source, 0, header, 0, 27);
+            System.arraycopy(source, 0, header, 0, 27);
          }
 
          BitInputStream bdSource=new ByteArrayBitInputStream(header);
@@ -253,13 +253,13 @@ public class OggPage {
          for(int i=0; i<pageSegments; i++) {
             int l=0;
             if(source instanceof RandomAccessFile) {
-               l=((int)((RandomAccessFile)source).readByte()&0xff);
+               l=(((RandomAccessFile)source).readByte()&0xff);
             }
             else if(source instanceof InputStream) {
-               l=(int)((InputStream)source).read();
+               l=((InputStream)source).read();
             }
             else if(source instanceof byte[]) {
-               l=(int)((byte[])source)[sourceOffset++];
+               l=((byte[])source)[sourceOffset++];
                l&=255;
             }
             segmentTable[i]=(byte)l;

@@ -24,8 +24,6 @@
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
-import java.util.*;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 class Residue2 extends Residue {
@@ -39,11 +37,13 @@ class Residue2 extends Residue {
       super(source, header);
    }
 
-   protected int getType() {
+   @Override
+protected int getType() {
       return 2;
    }
 
-   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
+   @Override
+protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
 
       Look look=getLook(vorbis, mode);
 
@@ -103,7 +103,8 @@ class Residue2 extends Residue {
    }
 
 
-   public Object clone() {
+   @Override
+public Object clone() {
       Residue2 clone=new Residue2();
       fill(clone);
       return clone;

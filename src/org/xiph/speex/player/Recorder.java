@@ -117,9 +117,12 @@ public class Recorder
     recorder.init();
     JFrame frame = new JFrame("Recorder");
     frame.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {System.exit(0);}
-      public void windowDeiconified(WindowEvent e) { recorder.start(); }
-      public void windowIconified(WindowEvent e) { recorder.stop(); }
+      @Override
+	public void windowClosing(WindowEvent e) {System.exit(0);}
+      @Override
+	public void windowDeiconified(WindowEvent e) { recorder.start(); }
+      @Override
+	public void windowIconified(WindowEvent e) { recorder.stop(); }
     });
     frame.getContentPane().add("Center", recorder);
     frame.pack();
@@ -138,7 +141,8 @@ public class Recorder
   /**
    * Initialize the Player Component.
    */
-  public void init()
+  @Override
+public void init()
   {
     super.init();
     capture = new Capture(); 
@@ -149,7 +153,8 @@ public class Recorder
    * @return an InputSteam containing the Audio to playback.
    * @throws IOException
    */
-  protected InputStream getAudioStream()
+  @Override
+protected InputStream getAudioStream()
     throws IOException
   {
     if (audio == null) {
@@ -260,7 +265,8 @@ System.out.println("size="+audio.length);
      * buffer.
      * Implemented from Runnable interface.
      */
-    public void run()
+    @Override
+	public void run()
     {
       int read = 0;
       while (thread != null && state == STATE_RECORDING && read != -1) {
@@ -285,7 +291,8 @@ System.out.println("size="+audio.length);
    * Process Actions when button are pressed.
    * Implemented from ActionListener interface.
    */
-  public void actionPerformed(final ActionEvent e) {
+  @Override
+public void actionPerformed(final ActionEvent e) {
     if (e.getSource() == timer) {
       progressBar.setValue(getProgress());
     }
@@ -318,7 +325,8 @@ System.out.println("size="+audio.length);
   /**
    *
    */
-  public synchronized void stopIt()
+  @Override
+public synchronized void stopIt()
   {
     recordButton.setEnabled(false);
     playButton.setEnabled(false);
@@ -343,7 +351,8 @@ System.out.println("size="+audio.length);
   /**
    *
    */
-  public synchronized void playIt()
+  @Override
+public synchronized void playIt()
   {
     recordButton.setEnabled(false);
     playButton.setEnabled(false);
@@ -368,7 +377,8 @@ System.out.println("size="+audio.length);
   /**
    *
    */
-  public synchronized void pauseIt()
+  @Override
+public synchronized void pauseIt()
   {
     recordButton.setEnabled(false);
     playButton.setEnabled(false);
@@ -421,7 +431,8 @@ System.out.println("size="+audio.length);
    * Return the progress of the playback.
    * @return the progress of the playback.
    */
-  protected int getProgress()
+  @Override
+protected int getProgress()
   {
     audioLength = 500000;
     if (state == STATE_PLAYING || state == STATE_PAUSED) {
@@ -449,7 +460,8 @@ System.out.println("size="+audio.length);
    * +--------------------------------+
    * </pre>
    */
-  protected void createButtonPanel()
+  @Override
+protected void createButtonPanel()
   {
     recordButton = buildButton("Record", "Record",
                                "/images/player_record.gif",

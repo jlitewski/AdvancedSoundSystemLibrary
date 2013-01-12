@@ -128,7 +128,7 @@ public abstract class LspQuant
   {
     int id=bits.unpack(6);
     for (int i=0;i<ti;i++)
-      lsp[i+li] += k * (float)tab[id*ti+i];
+      lsp[i+li] += k * tab[id*ti+i];
   }
   
   /**

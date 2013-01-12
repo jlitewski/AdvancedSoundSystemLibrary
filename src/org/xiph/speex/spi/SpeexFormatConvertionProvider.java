@@ -81,7 +81,8 @@ public class SpeexFormatConvertionProvider
    * @return array of source format encodings.
    * The array will always have a length of at least 1.
    */
-  public AudioFormat.Encoding[] getSourceEncodings()
+  @Override
+public AudioFormat.Encoding[] getSourceEncodings()
   {
     AudioFormat.Encoding[] encodings = {SpeexEncoding.SPEEX,
                                         AudioFormat.Encoding.PCM_SIGNED};
@@ -94,7 +95,8 @@ public class SpeexFormatConvertionProvider
    * @return array of target format encodings.
    * The array will always have a length of at least 1.
    */
-  public AudioFormat.Encoding[] getTargetEncodings()
+  @Override
+public AudioFormat.Encoding[] getTargetEncodings()
   {
     AudioFormat.Encoding[] encodings = {SpeexEncoding.SPEEX_Q0,
                                         SpeexEncoding.SPEEX_Q1,
@@ -129,7 +131,8 @@ public class SpeexFormatConvertionProvider
    * @param sourceFormat format of the incoming data.
    * @return array of supported target format encodings.
    */
-  public AudioFormat.Encoding[] getTargetEncodings(final AudioFormat sourceFormat)
+  @Override
+public AudioFormat.Encoding[] getTargetEncodings(final AudioFormat sourceFormat)
   {
     if (sourceFormat.getEncoding().equals(AudioFormat.Encoding.PCM_SIGNED)) {
       AudioFormat.Encoding[] encodings = {SpeexEncoding.SPEEX_Q0,
@@ -174,7 +177,8 @@ public class SpeexFormatConvertionProvider
    * @param sourceFormat format of the incoming data.
    * @return array of supported target formats.
    */
-  public AudioFormat[] getTargetFormats(final AudioFormat.Encoding targetEncoding,
+  @Override
+public AudioFormat[] getTargetFormats(final AudioFormat.Encoding targetEncoding,
                                         final AudioFormat sourceFormat)
   {
     if (sourceFormat.getEncoding().equals(AudioFormat.Encoding.PCM_SIGNED) &&
@@ -220,7 +224,8 @@ public class SpeexFormatConvertionProvider
    * @exception IllegalArgumentException - if the format combination supplied
    * is not supported.
    */
-  public AudioInputStream getAudioInputStream(final AudioFormat.Encoding targetEncoding,
+  @Override
+public AudioInputStream getAudioInputStream(final AudioFormat.Encoding targetEncoding,
                                               final AudioInputStream sourceStream)
   {
     if (isConversionSupported(targetEncoding, sourceStream.getFormat())) {
@@ -264,7 +269,8 @@ public class SpeexFormatConvertionProvider
    * @exception IllegalArgumentException - if the format combination supplied
    * is not supported.
    */
-  public AudioInputStream getAudioInputStream(final AudioFormat targetFormat,
+  @Override
+public AudioInputStream getAudioInputStream(final AudioFormat targetFormat,
                                               final AudioInputStream sourceStream)
   {
     if (isConversionSupported(targetFormat, sourceStream.getFormat())) {

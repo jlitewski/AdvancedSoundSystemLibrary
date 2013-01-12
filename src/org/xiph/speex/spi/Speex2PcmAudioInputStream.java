@@ -239,7 +239,8 @@ public class Speex2PcmAudioInputStream
    * pos > count.
    * @exception IOException
    */
-  protected void fill()
+  @Override
+protected void fill()
     throws IOException
   {
     makeSpace();
@@ -358,7 +359,8 @@ public class Speex2PcmAudioInputStream
    * @return     the actual number of bytes skipped.
    * @exception  IOException  if an I/O error occurs.
    */
-  public synchronized long skip(long n)
+  @Override
+public synchronized long skip(long n)
     throws IOException
   {
     while (!initialised) {
@@ -435,7 +437,8 @@ public class Speex2PcmAudioInputStream
    * @exception IOException if an I/O error occurs.
    * @see #in
    */
-  public synchronized int available()
+  @Override
+public synchronized int available()
     throws IOException
   {
     if (!initialised) {

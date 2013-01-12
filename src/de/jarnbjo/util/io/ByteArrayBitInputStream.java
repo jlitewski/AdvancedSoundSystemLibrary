@@ -56,7 +56,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       bitIndex=(endian==LITTLE_ENDIAN)?0:7;
    }
 
-   public boolean getBit() throws IOException {
+   @Override
+public boolean getBit() throws IOException {
       if(endian==LITTLE_ENDIAN) {
          if(bitIndex>7) {
             bitIndex=0;
@@ -73,7 +74,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       }
    }
 
-   public int getInt(int bits) throws IOException {
+   @Override
+public int getInt(int bits) throws IOException {
       if(bits>32) {
          throw new IllegalArgumentException("Argument \"bits\" must be <= 32");
       }
@@ -91,23 +93,23 @@ public class ByteArrayBitInputStream implements BitInputStream {
             currentByte=source[++byteIndex];
          }
          if(bits<=bitIndex+1) {
-            int ci=((int)currentByte)&0xff;
+            int ci=(currentByte)&0xff;
             int offset=1+bitIndex-bits;
             int mask=((1<<bits)-1)<<offset;
             res=(ci&mask)>>offset;
             bitIndex-=bits;
          }
          else {
-            res=(((int)currentByte)&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
+            res=((currentByte)&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
             bits-=bitIndex+1;
             currentByte=source[++byteIndex];
             while(bits>=8) {
                bits-=8;
-               res|=(((int)source[byteIndex])&0xff)<<bits;
+               res|=((source[byteIndex])&0xff)<<bits;
                currentByte=source[++byteIndex];
             }
             if(bits>0) {
-               int ci=((int)source[byteIndex])&0xff;
+               int ci=(source[byteIndex])&0xff;
                res|=(ci>>(8-bits))&((1<<bits)-1);
                bitIndex=7-bits;
             }
@@ -121,7 +123,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       return res;
    }
 
-   public int getSignedInt(int bits) throws IOException {
+   @Override
+public int getSignedInt(int bits) throws IOException {
       int raw=getInt(bits);
       if(raw>=1<<(bits-1)) {
          raw-=1<<bits;
@@ -129,7 +132,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       return raw;
    }
 
-   public int getInt(HuffmanNode root) throws IOException {
+   @Override
+public int getInt(HuffmanNode root) throws IOException {
       while(root.value==null) {
          if(bitIndex>7) {
             bitIndex=0;
@@ -140,7 +144,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       return root.value.intValue();
    }
 
-   public long getLong(int bits) throws IOException {
+   @Override
+public long getLong(int bits) throws IOException {
       if(bits>64) {
          throw new IllegalArgumentException("Argument \"bits\" must be <= 64");
       }
@@ -175,7 +180,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
     
-   public int readSignedRice(int order) throws IOException {
+   @Override
+public int readSignedRice(int order) throws IOException {
 
       int msbs=-1, lsbs=0, res=0;
 
@@ -203,23 +209,23 @@ public class ByteArrayBitInputStream implements BitInputStream {
             byteIndex++;
          }
          if(bits<=bitIndex+1) {
-            int ci=((int)source[byteIndex])&0xff;
+            int ci=(source[byteIndex])&0xff;
             int offset=1+bitIndex-bits;
             int mask=((1<<bits)-1)<<offset;
             lsbs=(ci&mask)>>offset;
             bitIndex-=bits;
          }
          else {
-            lsbs=(((int)source[byteIndex])&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
+            lsbs=((source[byteIndex])&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
             bits-=bitIndex+1;
             byteIndex++;
             while(bits>=8) {
                bits-=8;
-               lsbs|=(((int)source[byteIndex])&0xff)<<bits;
+               lsbs|=((source[byteIndex])&0xff)<<bits;
                byteIndex++;
             }
             if(bits>0) {
-               int ci=((int)source[byteIndex])&0xff;
+               int ci=(source[byteIndex])&0xff;
                lsbs|=(ci>>(8-bits))&((1<<bits)-1);
                bitIndex=7-bits;
             }
@@ -252,7 +258,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public void readSignedRice(int order, int[] buffer, int off, int len) throws IOException {
+   @Override
+public void readSignedRice(int order, int[] buffer, int off, int len) throws IOException {
 
       if(endian==LITTLE_ENDIAN) {
          // little endian
@@ -281,23 +288,23 @@ public class ByteArrayBitInputStream implements BitInputStream {
                byteIndex++;
             }
             if(bits<=bitIndex+1) {
-               int ci=((int)source[byteIndex])&0xff;
+               int ci=(source[byteIndex])&0xff;
                int offset=1+bitIndex-bits;
                int mask=((1<<bits)-1)<<offset;
                lsbs=(ci&mask)>>offset;
                bitIndex-=bits;
             }
             else {
-               lsbs=(((int)source[byteIndex])&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
+               lsbs=((source[byteIndex])&0xff&((1<<(bitIndex+1))-1))<<(bits-bitIndex-1);
                bits-=bitIndex+1;
                byteIndex++;
                while(bits>=8) {
                   bits-=8;
-                  lsbs|=(((int)source[byteIndex])&0xff)<<bits;
+                  lsbs|=((source[byteIndex])&0xff)<<bits;
                   byteIndex++;
                }
                if(bits>0) {
-                  int ci=((int)source[byteIndex])&0xff;
+                  int ci=(source[byteIndex])&0xff;
                   lsbs|=(ci>>(8-bits))&((1<<bits)-1);
                   bitIndex=7-bits;
                }
@@ -313,7 +320,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       }
    }
 
-   public void align() {
+   @Override
+public void align() {
       if(endian==BIG_ENDIAN && bitIndex>=0) {
          bitIndex=7;
          byteIndex++;
@@ -324,7 +332,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
       }
    }
 
-   public void setEndian(int endian) {
+   @Override
+public void setEndian(int endian) {
       if(this.endian==BIG_ENDIAN && endian==LITTLE_ENDIAN) {
          bitIndex=0;
          byteIndex++;

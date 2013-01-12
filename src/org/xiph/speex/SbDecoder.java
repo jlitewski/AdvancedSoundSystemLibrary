@@ -102,7 +102,8 @@ public class SbDecoder
   /**
    * Wideband initialisation
    */
-  public void wbinit()
+  @Override
+public void wbinit()
   {
     lowdec = new NbDecoder();
     ((NbDecoder)lowdec).nbinit();
@@ -116,7 +117,8 @@ public class SbDecoder
   /**
    * Ultra-wideband initialisation
    */
-  public void uwbinit()
+  @Override
+public void uwbinit()
   {
     lowdec = new SbDecoder();
     ((SbDecoder)lowdec).wbinit();
@@ -135,7 +137,8 @@ public class SbDecoder
    * @param bufSize
    * @param foldingGain
    */
-  public void init(final int frameSize,
+  @Override
+public void init(final int frameSize,
                    final int subframeSize,
                    final int lpcSize,
                    final int bufSize,
@@ -154,7 +157,8 @@ public class SbDecoder
    * @throws StreamCorruptedException If there is an error detected in the
    * data stream.
    */
-  public int decode(final Bits bits, final float[] out)
+  @Override
+public int decode(final Bits bits, final float[] out)
     throws StreamCorruptedException
   {
     int i, sub, wideband, ret;
@@ -410,7 +414,8 @@ public class SbDecoder
    * array will contain the interlaced stereo audio samples.
    * @param frameSize - the size of a frame of mono audio samples.
    */
-  public void decodeStereo(final float[] data, final int frameSize)
+  @Override
+public void decodeStereo(final float[] data, final int frameSize)
   {
     stereo.decode(data, frameSize);
   }
@@ -419,7 +424,8 @@ public class SbDecoder
    * Enables or disables perceptual enhancement.
    * @param enhanced
    */
-  public void setPerceptualEnhancement(boolean enhanced)
+  @Override
+public void setPerceptualEnhancement(boolean enhanced)
   {
     this.enhanced = enhanced;
   }
@@ -428,7 +434,8 @@ public class SbDecoder
    * Returns whether perceptual enhancement is enabled or disabled.
    * @return whether perceptual enhancement is enabled or disabled.
    */
-  public boolean getPerceptualEnhancement()
+  @Override
+public boolean getPerceptualEnhancement()
   {
     return enhanced;
   }

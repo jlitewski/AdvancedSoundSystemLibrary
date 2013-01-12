@@ -127,7 +127,8 @@ public class NbEncoder
    * @param lpcSize
    * @param bufSize
    */
-  public void init(final int frameSize,
+  @Override
+public void init(final int frameSize,
                    final int subframeSize,
                    final int lpcSize,
                    final int bufSize)
@@ -193,7 +194,8 @@ public class NbEncoder
    * @param in - the raw mono audio frame to encode.
    * @return return 1 if successful.
    */
-  public int encode(final Bits bits, final float[] in)
+  @Override
+public int encode(final Bits bits, final float[] in)
   {
     int i;
     float[] res, target, mem;
@@ -803,7 +805,8 @@ public class NbEncoder
    * Returns the size in bits of an audio frame encoded with the current mode.
    * @return the size in bits of an audio frame encoded with the current mode.
    */
-  public int getEncodedFrameSize()
+  @Override
+public int getEncodedFrameSize()
   {
     return NB_FRAME_SIZE[submodeID];
   }
@@ -816,7 +819,8 @@ public class NbEncoder
    * Sets the Quality
    * @param quality
    */
-  public void setQuality(int quality)
+  @Override
+public void setQuality(int quality)
   {
     if (quality < 0) {
       quality = 0;
@@ -831,7 +835,8 @@ public class NbEncoder
    * Gets the bitrate.
    * @return the bitrate.
    */
-  public int getBitRate()
+  @Override
+public int getBitRate()
   {
     if (submodes[submodeID] != null)
       return sampling_rate*submodes[submodeID].bits_per_frame/frameSize;
@@ -853,7 +858,8 @@ public class NbEncoder
    * Sets the encoding submode.
    * @param mode
    */
-  public void setMode(int mode)
+  @Override
+public void setMode(int mode)
   {
     if (mode < 0) {
       mode = 0;
@@ -865,7 +871,8 @@ public class NbEncoder
    * Returns the encoding submode currently in use.
    * @return the encoding submode currently in use.
    */
-  public int getMode()
+  @Override
+public int getMode()
   {
     return submodeID;
   }
@@ -874,7 +881,8 @@ public class NbEncoder
    * Sets the bitrate.
    * @param bitrate
    */
-  public void setBitRate(final int bitrate)
+  @Override
+public void setBitRate(final int bitrate)
   {
     for (int i=10; i>=0; i--) {
       setQuality(i);
@@ -887,7 +895,8 @@ public class NbEncoder
    * Sets whether or not to use Variable Bit Rate encoding.
    * @param vbr
    */
-  public void setVbr(final boolean vbr)
+  @Override
+public void setVbr(final boolean vbr)
   {
     vbr_enabled = vbr ? 1 : 0;
   }
@@ -896,7 +905,8 @@ public class NbEncoder
    * Returns whether or not we are using Variable Bit Rate encoding.
    * @return whether or not we are using Variable Bit Rate encoding.
    */
-  public boolean getVbr()
+  @Override
+public boolean getVbr()
   {
     return vbr_enabled != 0;
   }
@@ -905,7 +915,8 @@ public class NbEncoder
    * Sets whether or not to use Voice Activity Detection encoding.
    * @param vad
    */
-  public void setVad(final boolean vad)
+  @Override
+public void setVad(final boolean vad)
   {
     vad_enabled = vad ? 1 : 0;
   }
@@ -914,7 +925,8 @@ public class NbEncoder
    * Returns whether or not we are using Voice Activity Detection encoding.
    * @return whether or not we are using Voice Activity Detection encoding.
    */
-  public boolean getVad()
+  @Override
+public boolean getVad()
   {
     return vad_enabled != 0;
   }
@@ -923,7 +935,8 @@ public class NbEncoder
    * Sets whether or not to use Discontinuous Transmission encoding.
    * @param dtx
    */
-  public void setDtx(final boolean dtx)
+  @Override
+public void setDtx(final boolean dtx)
   {
     dtx_enabled = dtx ? 1 : 0;
   }
@@ -932,7 +945,8 @@ public class NbEncoder
    * Returns the Average Bit Rate used (0 if ABR is not turned on).
    * @return the Average Bit Rate used (0 if ABR is not turned on).
    */
-  public int getAbr()
+  @Override
+public int getAbr()
   {
     return abr_enabled;
   }
@@ -941,7 +955,8 @@ public class NbEncoder
    * Sets the Average Bit Rate.
    * @param abr
    */
-  public void setAbr(final int abr)
+  @Override
+public void setAbr(final int abr)
   {
     abr_enabled = (abr!=0) ? 1 : 0;
     vbr_enabled = 1;
@@ -971,7 +986,8 @@ public class NbEncoder
    * Sets the Varible Bit Rate Quality.
    * @param quality
    */
-  public void setVbrQuality(float quality)
+  @Override
+public void setVbrQuality(float quality)
   {
     if (quality < 0f)
       quality = 0f;
@@ -984,7 +1000,8 @@ public class NbEncoder
    * Returns the Varible Bit Rate Quality.
    * @return the Varible Bit Rate Quality.
    */
-  public float getVbrQuality()
+  @Override
+public float getVbrQuality()
   {
     return vbr_quality;
   }
@@ -993,7 +1010,8 @@ public class NbEncoder
    * Sets the algorthmic complexity.
    * @param complexity
    */
-  public void setComplexity(int complexity)
+  @Override
+public void setComplexity(int complexity)
   {
     if (complexity < 0)
       complexity = 0;
@@ -1006,7 +1024,8 @@ public class NbEncoder
    * Returns the algorthmic complexity.
    * @return the algorthmic complexity.
    */
-  public int getComplexity()
+  @Override
+public int getComplexity()
   {
     return complexity;
   }
@@ -1015,7 +1034,8 @@ public class NbEncoder
    * Sets the sampling rate.
    * @param rate
    */
-  public void setSamplingRate(final int rate)
+  @Override
+public void setSamplingRate(final int rate)
   {
     sampling_rate = rate;
   }
@@ -1024,7 +1044,8 @@ public class NbEncoder
    * Returns the sampling rate.
    * @return the sampling rate.
    */
-  public int getSamplingRate()
+  @Override
+public int getSamplingRate()
   {
     return sampling_rate;
   }
@@ -1033,7 +1054,8 @@ public class NbEncoder
    * Return LookAhead.
    * @return LookAhead.
    */
-  public int getLookAhead()
+  @Override
+public int getLookAhead()
   {
     return windowSize - frameSize;
   }
@@ -1042,7 +1064,8 @@ public class NbEncoder
    * Returns the relative quality.
    * @return the relative quality.
    */
-  public float getRelativeQuality()
+  @Override
+public float getRelativeQuality()
   {
     return relative_quality;
   }

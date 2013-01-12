@@ -16,10 +16,10 @@ import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.vorbis.IdentificationHeader;
 import de.jarnbjo.vorbis.VorbisStream;
 
+import com.hackhalo2.rendering.RenderLogger;
 import com.paulscode.sound.ICodec;
 import com.paulscode.sound.SoundBuffer;
 import com.paulscode.sound.SoundSystemConfig;
-import com.paulscode.sound.SoundSystemLogger;
 
 /**
  * The CodecJOgg class provides an ICodec interface to the external J-Ogg
@@ -134,7 +134,7 @@ public class CodecJOgg implements ICodec {
 	/**
 	 * Processes status messages, warnings, and error messages.
 	 */
-	private SoundSystemLogger logger;
+	private RenderLogger logger;
 
 	/**
 	 * Constructor: Grabs a handle to the logger.
@@ -154,6 +154,7 @@ public class CodecJOgg implements ICodec {
 	 * @param b
 	 *            True if the calling audio library requires byte-reversal.
 	 */
+	@Override
 	public void reverseByteOrder(boolean b) {
 		reverseBytes = b;
 	}
@@ -166,6 +167,7 @@ public class CodecJOgg implements ICodec {
 	 *            URL to an ogg file to stream from.
 	 * @return False if an error occurred or if end of stream was reached.
 	 */
+	@Override
 	public boolean initialize(URL url) {
 		initialized(SET, false);
 		cleanup();
@@ -189,10 +191,10 @@ public class CodecJOgg implements ICodec {
 
 			// Set up the audio format to use during playback:
 			myAudioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
-					(float) myIdentificationHeader.getSampleRate(), 16,
+					myIdentificationHeader.getSampleRate(), 16,
 					myIdentificationHeader.getChannels(),
 					myIdentificationHeader.getChannels() * 2,
-					(float) myIdentificationHeader.getSampleRate(), true);
+					myIdentificationHeader.getSampleRate(), true);
 
 			// Create the actual audio input stream:
 			myAudioInputStream = new AudioInputStream(myOggInputStream,
@@ -221,6 +223,7 @@ public class CodecJOgg implements ICodec {
 	 * 
 	 * @return True if steam is initialized.
 	 */
+	@Override
 	public boolean initialized() {
 		return initialized(GET, XXX);
 	}
@@ -232,6 +235,7 @@ public class CodecJOgg implements ICodec {
 	 * 
 	 * @return The audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer read() {
 		if (myAudioInputStream == null) {
 			endOfStream(SET, true);
@@ -311,6 +315,7 @@ public class CodecJOgg implements ICodec {
 	 * 
 	 * @return the audio data wrapped into a SoundBuffer context.
 	 */
+	@Override
 	public SoundBuffer readAll() {
 		// Check to make sure there is an audio format:
 		if (myAudioFormat == null) {
@@ -412,6 +417,7 @@ public class CodecJOgg implements ICodec {
 	 * 
 	 * @return True if end of stream was reached.
 	 */
+	@Override
 	public boolean endOfStream() {
 		return endOfStream(GET, XXX);
 	}
@@ -420,6 +426,7 @@ public class CodecJOgg implements ICodec {
 	 * Closes the audio stream and remove references to all instantiated
 	 * objects.
 	 */
+	@Override
 	public void cleanup() {
 		if (myLogicalOggStream != null)
 			try {
@@ -453,6 +460,7 @@ public class CodecJOgg implements ICodec {
 	 * 
 	 * @return Information wrapped into an AudioFormat context.
 	 */
+	@Override
 	public AudioFormat getAudioFormat() {
 		return myAudioFormat;
 	}
@@ -645,6 +653,7 @@ public class CodecJOgg implements ICodec {
 		 * 
 		 * @return The next byte of data, or -1 if EOS.
 		 */
+		@Override
 		public int read() throws IOException {
 			return 0;
 		}
@@ -693,7 +702,7 @@ public class CodecJOgg implements ICodec {
 	 *            Message to print.
 	 */
 	private void errorMessage(String message) {
-		logger.errorMessage("CodecJOgg", message, 0);
+		logger.err("CodecJOgg", message, 0);
 	}
 
 	/**
@@ -703,6 +712,6 @@ public class CodecJOgg implements ICodec {
 	 *            Exception containing the information to print.
 	 */
 	private void printStackTrace(Exception e) {
-		logger.printStackTrace(e, 1);
+		logger.printException(e);
 	}
 }
